@@ -20,11 +20,7 @@ import {
 } from './styles';
 
 export default class Main extends Component {
-  static navigationOptions = {
-    title: 'Usuários',
-  };
-
-  static PropTypes = {
+  static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
     }).isRequired,
