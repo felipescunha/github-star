@@ -13,8 +13,8 @@ export const Header = styled.View`
 `;
 
 export const Loading = styled.ActivityIndicator.attrs({
-  color: '#7159c1',
-  size: '',
+  color: '#333',
+  size: 50,
 })`
   flex: 1;
   justify-content: center;
