@@ -12,6 +12,16 @@ export const Header = styled.View`
   border-color: #eee;
 `;
 
+export const Loading = styled.ActivityIndicator.attrs({
+  color: '#7159c1',
+  size: '',
+})`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+`;
+
 export const Avatar = styled.Image`
   width: 100px;
   height: 100px;
