@@ -19,7 +19,7 @@ export const Loading = styled.ActivityIndicator.attrs({
   flex: 1;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 18px;
 `;
 
 export const Avatar = styled.Image`
