@@ -23,7 +23,7 @@ import {
 
 export default class Main extends Component {
   static navigationOptions = () => ({
-    title: 'Rocketseat - Desafio 06',
+    title: 'Rocketseat | Desafio 06',
   });
 
   static propTypes = {
@@ -35,6 +35,8 @@ export default class Main extends Component {
   state = {
     newUser: '',
     users: [],
+    inputUserPlaceHolder: 'Adicionar usuário',
+    inputUserNotfound: false,
     loading: false,
   };
 
@@ -56,24 +58,47 @@ export default class Main extends Component {
 
   handleAddUser = async () => {
     const { users, newUser } = this.state;
-
+    if (newUser === '') {
+      this.setState({
+        inputUserNotfound: true,
+        inputUserPlaceHolder: 'Digite o nome do usuário!',
+        newUser: '',
+        loading: false,
+      });
+      return;
+    }
     this.setState({ loading: true });
-    const response = await api.get(`/users/${newUser}`);
+    try {
+      const response = await api.get(`/users/${newUser}`);
 
-    const data = {
-      name: response.data.name,
-      login: response.data.login,
-      bio: response.data.bio,
-      avatar: response.data.avatar_url,
-    };
+      const data = {
+        name: response.data.name,
+        login: response.data.login,
+        bio: response.data.bio,
+        avatar: response.data.avatar_url,
+      };
 
-    this.setState({
-      users: [...users, data],
-      newUser: '',
-      loading: false,
-    });
-
+      this.setState({
+        users: [...users, data],
+        newUser: '',
+        loading: false,
+      });
+    } catch (e) {
+      this.setState({
+        inputUserNotfound: true,
+        inputUserPlaceHolder: 'Não localizamos este usuário!',
+        newUser: '',
+        loading: false,
+      });
+    }
     Keyboard.dismiss();
+  };
+
+  handleFocusUserInput = () => {
+    this.setState({
+      inputUserNotfound: false,
+      inputUserPlaceHolder: 'Adicionar usuário',
+    });
   };
 
   handleNavigate = user => {
@@ -83,24 +108,34 @@ export default class Main extends Component {
   };
 
   handleDelete = item => {
+    const { users } = this.state;
+
     this.setState({
-      users: this.state.users.filter(u => u.login !== item.login),
+      users: users.filter(u => u.login !== item.login),
     });
   };
 
   render() {
-    const { users, newUser, loading } = this.state;
+    const {
+      users,
+      newUser,
+      loading,
+      inputUserNotfound,
+      inputUserPlaceHolder,
+    } = this.state;
     return (
       <Container>
         <Form>
           <Input
             autoCorrect={false}
             autoCapitalize="none"
-            placeholder="Adicionar Usuário"
+            inputUserNotfound={inputUserNotfound}
+            placeholder={inputUserPlaceHolder}
             value={newUser}
             onChangeText={text => this.setState({ newUser: text })}
             returnKeyType="send"
             onSubmitEditing={this.handleAddUser}
+            onFocus={this.handleFocusUserInput}
           />
           <SubmitButton loading={loading} onPress={this.handleAddUser}>
             {loading ? (

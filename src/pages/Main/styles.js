@@ -22,6 +22,7 @@ export const Input = styled.TextInput.attrs({
   border-radius: 4px;
   padding: 0 15px;
   border: 1px solid #eee;
+  border-color: ${props => (props.inputUserNotfound ? '#ff6666' : '#EEE')};
 `;
 
 export const SubmitButton = styled(RectButton)`
@@ -82,13 +83,14 @@ export const ProfileButton = styled(RectButton)`
 
 export const DeleteButton = styled(RectButton)`
   margin-top: 10px;
-  margin-left: 2px;
+  margin-left: 4px;
   padding: 0 5px;
   border-radius: 4px;
   background: #7159c1;
   justify-content: center;
   align-items: center;
   height: 36px;
+  width: 36px;
 `;
 
 export const ProfileButtonText = styled.Text`
