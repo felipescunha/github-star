@@ -23,7 +23,7 @@ import {
 
 export default class Main extends Component {
   static navigationOptions = () => ({
-    title: 'Rocketseat | Desafio 06',
+    title: 'Github .::starred repositories::.',
   });
 
   static propTypes = {
